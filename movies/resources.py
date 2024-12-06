@@ -1,6 +1,7 @@
 from import_export import resources
 from movies.models.categories import Category
 from movies.models.countries import Country
+from movies.models.genres import Genre
 from movies.models.languages import Language
 from movies.models.movies import Movie
 
@@ -19,6 +20,12 @@ class CountryResource(resources.ModelResource):
     class Meta:
         model = Country
 
+
 class LanguageResource(resources.ModelResource):
     class Meta:
         model = Language
+
+
+class GenreResource(resources.ModelResource):
+    class Meta:
+        model = Genre

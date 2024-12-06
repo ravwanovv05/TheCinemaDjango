@@ -1,6 +1,7 @@
 from django.db import models
 from movies.models.categories import Category
 from movies.models.countries import Country
+from movies.models.genres import Genre
 from movies.models.languages import Language
 
 
@@ -10,6 +11,7 @@ class Movie(models.Model):
     year = models.PositiveIntegerField(null=True, blank=True, verbose_name='Year')
     series = models.PositiveIntegerField(null=True, blank=True, verbose_name='Series')
     code = models.PositiveBigIntegerField(verbose_name='Code')
+    genre_id = models.ForeignKey(Genre, on_delete=models.CASCADE, verbose_name='Genre ID')
     country_id = models.ForeignKey(Country, on_delete=models.CASCADE, verbose_name='Country ID')
     language_id = models.ForeignKey(Language, on_delete=models.CASCADE, verbose_name='Language ID')
     category_id = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Category ID')

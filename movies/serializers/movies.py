@@ -8,8 +8,12 @@ class MovieSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class MovieListSerializer(serializers.ModelSerializer):
+class FilterMovieSerializer(serializers.ModelSerializer):
+    from_year = serializers.IntegerField(write_only=True)
+    to_year = serializers.IntegerField(write_only=True)
+
     class Meta:
         model = Movie
-        fields = ('id', 'title', 'category_id')
+        fields = ('from_year', 'to_year', 'genre_id', 'country_id', 'category_id')
+
 

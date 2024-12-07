@@ -15,7 +15,7 @@ urlpatterns = [
     path('movie-by-code/<int:code>', MovieByCodeView.as_view(), name='movie_by_code'),
     path('movies-list', MoviesListView.as_view(), name='movies_list'),
     path('search-movies', SearchMoviesView.as_view(), name='search_movies'),
-    path('movies-by-year', MoviFilterView.as_view(), name='movies_by_year'),
+    path('filter-movies', MoviFilterView.as_view(), name='movies_by_year'),
 
     path('countries-list', CountryView.as_view(), name='countries_list'),
     path('languages-list', LanguageView.as_view(), name='languages_list'),

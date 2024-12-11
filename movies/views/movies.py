@@ -40,14 +40,14 @@ class MovieByCodeView(GenericAPIView):
 
 class MoviesListView(ListAPIView):
     serializer_class = MovieSerializer
-    queryset = Movie.objects.all().filter(invisible=False)
+    queryset = Movie.objects.filter(invisible=False)
 
     def get_queryset(self):
-        return Movie.objects.all()
+        return Movie.objects.filter(invisible=False)
 
 
 class SearchMoviesView(ListAPIView):
-    queryset = Movie.objects.all()
+    queryset = Movie.objects.filter(invisible=False)
     serializer_class = MovieSerializer
     filter_backends = (filters.SearchFilter,)
     search_fields = ('title',)
@@ -105,6 +105,7 @@ class NewMoviesList(GenericAPIView):
     def get(self, request, *args, **kwargs):
         timezone = pytz.timezone('Asia/Tashkent')
         current_year = datetime.now(timezone).year
-        movies_list = self.get_queryset().filter(Q(year__gt=current_year - 3 - 1) & Q(year__lt=current_year + 1))
+
+        movies_list = self.get_queryset().filter(Q(year__gt=current_year - 3 - 1) & Q(year__lt=current_year + 1) & Q(invisible=False))
         serializer = self.get_serializer(movies_list, many=True)
         return Response(serializer.data)

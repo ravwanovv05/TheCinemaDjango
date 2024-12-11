@@ -1,7 +1,7 @@
 from django.urls import path
 from movies.views.categories import CategoryView, CategoriesListView
-from movies.views.countries import CountryView
-from movies.views.genres import GenresListView
+from movies.views.countries import CountryView, CountryDetailsView
+from movies.views.genres import GenresListView, GenreDetailsView
 from movies.views.languages import LanguageView
 from movies.views.movies import MovieView, MoviesListView, MovieByCodeView, SearchMoviesView, MoviFilterView, \
     NewMoviesList
@@ -20,7 +20,10 @@ urlpatterns = [
     path('new-movies', NewMoviesList.as_view(), name='new_movies'),
 
     path('countries-list', CountryView.as_view(), name='countries_list'),
+    path('country-details/<int:pk>', CountryDetailsView.as_view(), name='country_details'),
+
     path('languages-list', LanguageView.as_view(), name='languages_list'),
 
     path('genres-list', GenresListView.as_view(), name='genres_list'),
+    path('genre-details/<int:pk>', GenreDetailsView.as_view(), name='genre_details'),
 ]

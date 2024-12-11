@@ -10,8 +10,11 @@ class MovieSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         if (
-                validated_data['category_id'].id == Category.objects.get(name='Serial').id
-                and int(validated_data['part']) > 1
+                validated_data['category_id'].id in (
+                    Category.objects.get(name='Serial').id,
+                    Category.objects.get(name='Anime serial'),
+                    Category.objects.get(name='Multserial')
+                ) and int(validated_data['part']) > 1
         ):
             invisible = True
         else:

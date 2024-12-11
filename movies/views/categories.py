@@ -12,8 +12,8 @@ class CategoryView(GenericAPIView):
         return Category.objects.all()
 
     def get(self, request, pk, *args, **kwargs):
-        category = Category.objects.filter(pk=pk)
-        serializer = self.get_serializer(category, many=True)
+        category = Category.objects.filter(pk=pk).first()
+        serializer = self.get_serializer(category, many=False)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request, *args, **kwargs):

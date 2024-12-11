@@ -33,14 +33,14 @@ class MovieByCodeView(GenericAPIView):
         return Movie.objects.all()
 
     def get(self, request, code, *args, **kwargs):
-        movie = Movie.objects.filter(code=code)
-        serializer = MovieSerializer(movie, many=True)
+        movie = self.get_queryset().filter(code=code).first()
+        serializer = MovieSerializer(movie, many=False)
         return Response(serializer.data)
 
 
 class MoviesListView(ListAPIView):
     serializer_class = MovieSerializer
-    queryset = Movie.objects.all()
+    queryset = Movie.objects.all().filter(invisible=False)
 
     def get_queryset(self):
         return Movie.objects.all()
@@ -89,8 +89,22 @@ class MoviFilterView(GenericAPIView):
         if category_id:
             category_id = int(category_id)
             query &= Q(category_id=category_id)
-        movies = Movie.objects.filter(query)
+        query &= Q(invisible=False)
 
-        serializer = MovieSerializer(movies, many=True)
+        movies_list = Movie.objects.filter(query)
+        serializer = MovieSerializer(movies_list, many=True)
         return Response(serializer.data)
 
+
+class NewMoviesList(GenericAPIView):
+    serializer_class = MovieSerializer
+
+    def get_queryset(self):
+        return Movie.objects.all()
+
+    def get(self, request, *args, **kwargs):
+        timezone = pytz.timezone('Asia/Tashkent')
+        current_year = datetime.now(timezone).year
+        movies_list = self.get_queryset().filter(Q(year__gt=current_year - 3 - 1) & Q(year__lt=current_year + 1))
+        serializer = self.get_serializer(movies_list, many=True)
+        return Response(serializer.data)

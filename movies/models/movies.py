@@ -7,10 +7,10 @@ from movies.models.languages import Language
 
 class Movie(models.Model):
     title = models.CharField(max_length=255, verbose_name='Title')
-    description = models.TextField(null=True, blank=True, verbose_name='Description')
     year = models.PositiveIntegerField(null=True, blank=True, verbose_name='Year')
-    series = models.PositiveIntegerField(null=True, blank=True, verbose_name='Series')
+    part = models.PositiveIntegerField(null=True, blank=True, verbose_name='Part')
     code = models.PositiveBigIntegerField(verbose_name='Code')
+    invisible = models.BooleanField(default=False, verbose_name='Invisible')
     genre_id = models.ForeignKey(Genre, on_delete=models.CASCADE, verbose_name='Genre ID')
     country_id = models.ForeignKey(Country, on_delete=models.CASCADE, verbose_name='Country ID')
     language_id = models.ForeignKey(Language, on_delete=models.CASCADE, verbose_name='Language ID')

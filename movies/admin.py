@@ -19,7 +19,7 @@ class CategoryAdmin(ImportExportModelAdmin):
 
 @admin.register(Movie)
 class MovieAdmin(ImportExportModelAdmin):
-    list_display = ('id', 'title', 'series', 'code', 'category_id')
+    list_display = ('id', 'title', 'part', 'code', 'category_id')
     list_display_links = ('id',)
     list_filter = ('category_id',)
     list_per_page = 10
